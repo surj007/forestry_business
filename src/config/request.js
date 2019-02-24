@@ -1,10 +1,8 @@
-import { ToastAndroid } from 'react-native';
-
 import navigationService from '../service/navigationService';
 
 export default (config) => {
   let baseUrl = 'http://192.168.0.106';
-  let timeout = 5000;
+  let timeout = 10000;
   let body = null;
   let headers = Object.assign({'Content-Type': 'application/json'}, config.headers);
 
@@ -36,21 +34,20 @@ export default (config) => {
           body,
           cache: 'no-cache'
         }).then((res) => {
-          console.log('headers: ', res);
+          console.log(config.url + 'headers: ', res);
           return res.json();
         }).then((resJson) => {
           if(resJson.code == 4) {
-            console.warn('res not 0: ', resJson);
-            ToastAndroid.show('已超时，请重新登陆', ToastAndroid.LONG);
-            global.$storage.remove({key: 'cookie'});
+            console.warn(config.url + 'res not 0: ', resJson);
+            global.$toast.show('已超时，请重新登陆');
             navigationService.navigate('Login');
           }
           else if(resJson.code != 0) {
-            console.warn('res not 0: ', resJson);
-            ToastAndroid.show(resJson.message, ToastAndroid.LONG);
+            console.warn(config.url + 'res not 0: ', resJson);
+            global.$toast.show(resJson.message);
           }
           else {
-            console.log('res: ', resJson);
+            console.log(config.url + 'res: ', resJson);
           }
           resolve(resJson);
         }).catch((e) => {
@@ -68,14 +65,13 @@ export default (config) => {
         Promise.race([timerPromise, fetchPromise]).then((res) => {
           resolve(res);
         }).catch((e) => {
-          console.warn('err: ', e);
-          ToastAndroid.show('网络错误，请重试', ToastAndroid.LONG);
+          console.warn(config.url + 'err: ', e);
+          global.$toast.show('网络错误，请重试');
         })
       });
     }).catch((e) => {
-      console.warn('cookie not found: ', e.message);
-      global.$storage.remove({key: 'cookie'});
-      ToastAndroid.show('已超时，请重新登陆', ToastAndroid.LONG);
+      console.warn(config.url + 'cookie not found: ', e.message);
+      global.$toast.show('已超时，请重新登陆');
       navigationService.navigate('Login');
     });
   }
@@ -87,7 +83,7 @@ export default (config) => {
         body,
         cache: 'no-cache'
       }).then((res) => {
-        console.log('headers: ', res);
+        console.log(config.url + 'headers: ', res);
         global.$storage.save({
           key: 'cookie',
           data: res.headers.map['set-cookie'].split(";")[0],
@@ -96,11 +92,11 @@ export default (config) => {
         return res.json();
       }).then((resJson) => {
         if(resJson.code != 0) {
-          console.warn('res not 0: ', resJson);
-          ToastAndroid.show(resJson.message, ToastAndroid.LONG);
+          console.warn(config.url + 'res not 0: ', resJson);
+          global.$toast.show(resJson.message);
         }
         else {
-          console.log('res: ', resJson);
+          console.log(config.url + 'res: ', resJson);
         }
         resolve(resJson);
       }).catch((e) => {
@@ -118,8 +114,8 @@ export default (config) => {
       Promise.race([timerPromise, fetchPromise]).then((res) => {
         resolve(res);
       }).catch((e) => {
-        console.warn('err: ', e);
-        ToastAndroid.show('网络错误，请重试', ToastAndroid.LONG);
+        console.warn(config.url + 'err: ', e);
+        global.$toast.show('网络错误，请重试');
       })
     });
   }

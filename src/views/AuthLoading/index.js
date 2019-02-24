@@ -12,7 +12,7 @@ class AuthLoading extends React.Component {
       key: 'cookie',
       syncInBackground: false
     }).then(() => {
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('My');
     }).catch((e) => {
       console.warn('cookie not found: ', e.message);
       this.props.navigation.navigate('Login');
@@ -22,7 +22,7 @@ class AuthLoading extends React.Component {
   render() {
     return (
       <View>
-        <Spinner color="green" />
+        <Spinner color="#01B6AF" />
       </View>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ToastAndroid } from 'react-native';
-import { Button, Text, Item, Input, Icon } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { Container, Content, View, Button, Text, Item, Input, Icon } from 'native-base';
 import { Image } from 'react-native';
 
 import logo from '../../assets/img/logo.png';
@@ -28,7 +28,7 @@ class Login extends Component {
       errorFlag = true;
     }
     if(errorFlag) {
-      ToastAndroid.show('用户名和密码不能为空', ToastAndroid.LONG);
+      global.$toast.show('用户名和密码不能为空');
       return;
     }
 
@@ -69,37 +69,39 @@ class Login extends Component {
 
   render() {
     return (
-      <View style={ styles.container }>
-        <Image style={ styles.logo } source={ logo } />
+      <Container>
+        <Content contentContainerStyle={ styles.content }>
+            <Image style={ styles.logo } source={ logo } />
 
-        <View style={ styles.innerContainer }>
-          <Item style={ styles.input } error={ this.state.error.usernameError }>
-            <Icon active={ this.state.error.usernameError } name="person" style={ styles.icon } />
+            <View style={ styles.innerContent }>
+              <Item style={ styles.input } error={ this.state.error.usernameError }>
+                <Icon active={ this.state.error.usernameError } name="person" style={ styles.icon } />
 
-            <Input placeholder="请输入用户名" placeholderTextColor="#CCCCCC" error="blue"
-            onChangeText={ (value) => { this.handleInputChange(value, 'username') } } value={ this.state.username } />
-          </Item>
+                <Input placeholder="请输入用户名" placeholderTextColor="#CCCCCC" error="blue"
+                onChangeText={ (value) => { this.handleInputChange(value, 'username') } } value={ this.state.username } />
+              </Item>
 
-          <Item error={ this.state.error.passwordError }>
-            <Icon active={ this.state.error.passwordError } name="ios-lock" style={ styles.icon } />
+              <Item error={ this.state.error.passwordError }>
+                <Icon active={ this.state.error.passwordError } name="ios-lock" style={ styles.icon } />
 
-            <Input placeholder="请输入密码" placeholderTextColor="#CCCCCC" secureTextEntry={ this.state.passwordType }
-            onChangeText={ (value) => { this.handleInputChange(value, 'password') } } value={ this.state.password } />
+                <Input placeholder="请输入密码" placeholderTextColor="#CCCCCC" secureTextEntry={ this.state.passwordType }
+                onChangeText={ (value) => { this.handleInputChange(value, 'password') } } value={ this.state.password } />
 
-            <Icon name={ this.state.passwordType ? 'ios-eye' : 'ios-eye-off' } style={ styles.icon } onPress={ this.togglePasswordType } />
-          </Item>
+                <Icon name={ this.state.passwordType ? 'ios-eye' : 'ios-eye-off' } style={ styles.icon } onPress={ this.togglePasswordType } />
+              </Item>
 
-          <Button full rounded success style={ styles.btn } onPress={ this.submit } >
-            <Text>登陆</Text>
-          </Button>
-        </View>
-      </View>
+              <Button full rounded success style={ styles.btn } onPress={ this.submit } >
+                <Text>登陆</Text>
+              </Button>
+            </View>
+        </Content>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  content: {
     flex: 1,
     alignItems: 'center'
   },
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
     marginTop: px2Dp(55),
     marginBottom: px2Dp(30)
   },
-  innerContainer: {
+  innerContent: {
     width: '100%',
     paddingLeft: px2Dp(20),
     paddingRight: px2Dp(20)
