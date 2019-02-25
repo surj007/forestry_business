@@ -3,7 +3,7 @@ import { createSwitchNavigator, createStackNavigator, createAppContainer } from 
 import AuthLoadingPage from '../views/AuthLoading';
 import LoginPage from '../views/Login';
 import BottomTabNavigator from './BottomTabNavigator';
-import MyDrawerNavigator from './MyDrawerNavigator';
+import MyStackNavigator from './MyStackNavigator';
 
 const AppStackNavigator = createStackNavigator(
   {
@@ -11,42 +11,25 @@ const AppStackNavigator = createStackNavigator(
       screen: BottomTabNavigator
     },
     My: {
-      screen: MyDrawerNavigator
-    }
-  },
-  {
-    initialRouteName: 'Home'
-  }
-);
-
-const AuthStackNavigator = createStackNavigator(
-  {
-    Login: {
-      screen: LoginPage
+      screen: MyStackNavigator
     }
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Login'
-  }
-);
-
-const AuthLoadingStackNavigator = createStackNavigator(
-  {
-    AuthLoadingIn: {
-      screen: AuthLoadingPage
-    }
-  },
-  {
-    initialRouteName: 'AuthLoadingIn'
+    initialRouteName: 'Home'
   }
 );
 
 export default createAppContainer(createSwitchNavigator(
   {
     App: AppStackNavigator,
-    Auth: AuthStackNavigator,
-    AuthLoading: AuthLoadingStackNavigator
+    Login: {
+      screen: LoginPage,
+      navigationOptions: {
+        header: null
+      }
+    },
+    AuthLoading: AuthLoadingPage
   },
   {
     initialRouteName: 'AuthLoading'

@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import { Container, Content, Text } from 'native-base';
+
 class Message extends Component {
   render() {
     return (

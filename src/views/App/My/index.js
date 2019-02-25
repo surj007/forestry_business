@@ -11,12 +11,25 @@ class My extends Component {
     }, 1500);
   }
 
+  logout = () => {
+    global.$http({
+      url: '/auth/logout',
+      method: 'GET'
+    }).then((res) => {
+      if(res.code == 0) {
+        global.$toast.show('退出成功');
+        global.$storage.remove({key: 'cookie'});
+        this.props.navigation.navigate('Login');
+      }
+    });
+  }
+
   render() {
     return (
       <Container>
         <Content contentContainerStyle={ styles.content }>
           <List style={ styles.list }>
-            <ListItem onPress={ this.props.navigation.openDrawer }>
+            <ListItem onPress={ () => { this.props.navigation.navigate('Message') } }>
               <Left>
                 <Text>消息</Text>
               </Left>
@@ -57,7 +70,7 @@ class My extends Component {
           </List>
 
           <List style={ styles.list }>
-            <ListItem style={ styles.logot }>
+            <ListItem style={ styles.logout } onPress={ this.logout }>
               <Text style={{ color: '#FF8F3B' }}>退出登陆</Text>
             </ListItem>
           </List>
@@ -76,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     marginBottom: px2Dp(7)
   },
-  logot: {
+  logout: {
     justifyContent: 'center'
   }
 });

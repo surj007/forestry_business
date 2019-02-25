@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
     marginBottom: px2Dp(20)
   },
   btn: {
-    marginTop: px2Dp(125)
+    marginTop: px2Dp(125),
+    backgroundColor: '#54e69b'
   }
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator,createStackNavigator } from 'react-navigation';
 import { Icon, View } from 'native-base';
 
 import { px2Dp } from '../utils';
@@ -10,7 +10,34 @@ import CheckPage from '../views/App/Home/Check';
 const BottomTabNavigator = createBottomTabNavigator(
   {
     Review: {
-      screen: ReviewPage,
+      screen: createStackNavigator(
+        {
+          ReviewIn: {
+            screen: ReviewPage,
+            navigationOptions:  ({ navigation }) => ({
+              headerTitle: '资料审核',
+              headerLeft: (
+                <View style={{ paddingLeft: px2Dp(16) }}>
+                  <Icon name="user" type="AntDesign" style={{ color: '#CCCCCC' }} onPress={ () => { navigation.navigate('My') } } />
+                </View>
+              ),
+              headerRight: (
+                <View style={{ paddingRight: px2Dp(16) }}>
+                  <Icon name="search1" type="AntDesign" style={{ color: '#CCCCCC' }} />
+                </View>
+              ),
+              headerTitleStyle: {
+                flex: 1, 
+                textAlign: 'center',
+                fontSize: 18
+              }
+            })
+          }
+        },
+        {
+          initialRouteName: 'ReviewIn',
+        }
+      ),
       navigationOptions: {
         tabBarLabel: '资料审核',
         tabBarIcon: ({ tintColor }) => (
@@ -19,7 +46,34 @@ const BottomTabNavigator = createBottomTabNavigator(
       }
     },
     List: {
-      screen: ListPage,
+      screen: createStackNavigator(
+        {
+          ListIn: {
+            screen: ListPage,
+            navigationOptions:  ({ navigation }) => ({
+              headerTitle: '企业列表',
+              headerLeft: (
+                <View style={{ paddingLeft: px2Dp(16) }}>
+                  <Icon name="user" type="AntDesign" style={{ color: '#CCCCCC' }} onPress={ () => { navigation.navigate('My') } } />
+                </View>
+              ),
+              headerRight: (
+                <View style={{ paddingRight: px2Dp(16) }}>
+                  <Icon name="search1" type="AntDesign" style={{ color: '#CCCCCC' }} />
+                </View>
+              ),
+              headerTitleStyle: {
+                flex: 1, 
+                textAlign: 'center',
+                fontSize: 18
+              }
+            })
+          }
+        },
+        {
+          initialRouteName: 'ListIn',
+        }
+      ),
       navigationOptions: {
         tabBarLabel: '企业列表',
         tabBarIcon: ({ tintColor }) => (
@@ -28,7 +82,34 @@ const BottomTabNavigator = createBottomTabNavigator(
       }
     },
     Check: {
-      screen: CheckPage,
+      screen: createStackNavigator(
+        {
+          CheckIn: {
+            screen: CheckPage,
+            navigationOptions:  ({ navigation }) => ({
+              headerTitle: '企业检查',
+              headerLeft: (
+                <View style={{ paddingLeft: px2Dp(16) }}>
+                  <Icon name="user" type="AntDesign" style={{ color: '#CCCCCC' }} onPress={ () => { navigation.navigate('My') } } />
+                </View>
+              ),
+              headerRight: (
+                <View style={{ paddingRight: px2Dp(16) }}>
+                  <Icon name="search1" type="AntDesign" style={{ color: '#CCCCCC' }} />
+                </View>
+              ),
+              headerTitleStyle: {
+                flex: 1, 
+                textAlign: 'center',
+                fontSize: 18
+              }
+            })
+          }
+        },
+        {
+          initialRouteName: 'CheckIn',
+        }
+      ),
       navigationOptions: {
         tabBarLabel: '企业检查',
         tabBarIcon: ({ tintColor }) => (
@@ -44,39 +125,5 @@ const BottomTabNavigator = createBottomTabNavigator(
     }
   }
 );
-
-BottomTabNavigator.navigationOptions = ({ navigation }) => {
-  let headerTitle = '';
-  const { routeName } = navigation.state.routes[navigation.state.index];
-
-  if (routeName == 'Review') {
-    headerTitle = '资料审核'
-  }
-  else if(routeName == 'List') {
-    headerTitle = '企业列表'
-  }
-  else if(routeName == 'Check') {
-    headerTitle = '企业检查'
-  }
-
-  return {
-    headerTitle,
-    headerLeft: (
-      <View style={{ paddingLeft: px2Dp(16) }}>
-        <Icon name="user" type="AntDesign" style={{ color: '#CCCCCC' }} onPress={ () => { navigation.navigate('My') } } />
-      </View>
-    ),
-    headerRight: (
-      <View style={{ paddingRight: px2Dp(16) }}>
-        <Icon name="search1" type="AntDesign" style={{ color: '#CCCCCC' }} />
-      </View>
-    ),
-    headerTitleStyle: {
-      flex: 1, 
-      textAlign: 'center',
-      fontSize: 18
-    }
-  };
-};
 
 export default BottomTabNavigator;
