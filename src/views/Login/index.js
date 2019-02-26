@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Container, Content, View, Button, Text, Item, Input, Icon } from 'native-base';
 import { Image } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 import logo from '../../assets/img/logo.png';
 import { px2Dp } from '../../utils';
@@ -15,6 +16,10 @@ class Login extends Component {
       usernameError: false,
       passwordError: false
     }
+  }
+
+  componentDidMount() {
+    SplashScreen.hide();
   }
 
   submit = async () => {
@@ -90,7 +95,7 @@ class Login extends Component {
                 <Icon name={ this.state.passwordType ? 'ios-eye' : 'ios-eye-off' } style={ styles.icon } onPress={ this.togglePasswordType } />
               </Item>
 
-              <Button full rounded success style={ styles.btn } onPress={ this.submit } >
+              <Button full rounded success style={ styles.btn } onPress={ this.submit }>
                 <Text>登陆</Text>
               </Button>
             </View>
@@ -124,7 +129,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     marginTop: px2Dp(125),
-    backgroundColor: '#54e69b'
+    backgroundColor: '#54e69b',
+    height: px2Dp(40)
   }
 });
 

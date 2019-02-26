@@ -6,6 +6,7 @@ import { px2Dp } from '../utils';
 import ReviewPage from '../views/App/Home/Review';
 import ListPage from '../views/App/Home/List';
 import CheckPage from '../views/App/Home/Check';
+import ReviewContentStackNavigator from './ReviewContentStackNavigator';
 
 const BottomTabNavigator = createBottomTabNavigator(
   {
@@ -32,17 +33,30 @@ const BottomTabNavigator = createBottomTabNavigator(
                 fontSize: 18
               }
             })
+          },
+          ReviewContent: {
+            screen: ReviewContentStackNavigator,
+            navigationOptions: {
+              header: null
+            }
           }
         },
         {
           initialRouteName: 'ReviewIn',
         }
       ),
-      navigationOptions: {
-        tabBarLabel: '资料审核',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="ios-checkbox" style={{ color: tintColor }} />
-        )
+      navigationOptions: ({ navigation }) => {
+        let tabBarVisible = false;
+        if(navigation.state.routes[navigation.state.index].routeName == 'ReviewIn') {
+          tabBarVisible = true;
+        }
+        return {
+          tabBarVisible,
+          tabBarLabel: '资料审核',
+          tabBarIcon: ({ tintColor }) => (
+            <Icon name="ios-checkbox" style={{ color: tintColor }} />
+          )
+        }
       }
     },
     List: {
@@ -74,11 +88,18 @@ const BottomTabNavigator = createBottomTabNavigator(
           initialRouteName: 'ListIn',
         }
       ),
-      navigationOptions: {
-        tabBarLabel: '企业列表',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="bars" type="AntDesign" style={{ color: tintColor }} />
-        )
+      navigationOptions: ({ navigation }) => {
+        let tabBarVisible = false;
+        if(navigation.state.routes[navigation.state.index].routeName == 'ListIn') {
+          tabBarVisible = true;
+        }
+        return {
+          tabBarVisible,
+          tabBarLabel: '企业列表',
+          tabBarIcon: ({ tintColor }) => (
+            <Icon name="bars" type="AntDesign" style={{ color: tintColor }} />
+          )
+        }
       }
     },
     Check: {
@@ -110,11 +131,18 @@ const BottomTabNavigator = createBottomTabNavigator(
           initialRouteName: 'CheckIn',
         }
       ),
-      navigationOptions: {
-        tabBarLabel: '企业检查',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="form" type="AntDesign" style={{ color: tintColor, fontSize: 23 }} />
-        )
+      navigationOptions: ({ navigation }) => {
+        let tabBarVisible = false;
+        if(navigation.state.routes[navigation.state.index].routeName == 'CheckIn') {
+          tabBarVisible = true;
+        }
+        return {
+          tabBarVisible,
+          tabBarLabel: '企业检查',
+          tabBarIcon: ({ tintColor }) => (
+            <Icon name="form" type="AntDesign" style={{ color: tintColor, fontSize: 23 }} />
+          )
+        }
       }
     }
   },

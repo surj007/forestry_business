@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Spinner } from 'native-base';
+import { View } from 'native-base';
 
 class AuthLoading extends React.Component {
   constructor(props) {
@@ -7,23 +7,29 @@ class AuthLoading extends React.Component {
     this.bootstrap();
   }
 
-  bootstrap = () => {
-    global.$storage.load({
-      key: 'cookie',
-      syncInBackground: false
-    }).then(() => {
+  bootstrap = async () => {
+    try {
+      let data = await global.$storage.load({
+        key: 'cookie',
+        syncInBackground: false
+      });
+
+      await global.$storage.save({
+        key: 'cookie',
+        data
+      });
+
       this.props.navigation.navigate('App');
-    }).catch((e) => {
+    }
+    catch(e) {
       console.warn('cookie not found: ', e.message);
       this.props.navigation.navigate('Login');
-    });
+    }
   };
 
   render() {
     return (
-      <View>
-        <Spinner color="#54e69b" />
-      </View>
+      <View></View>
     );
   }
 }

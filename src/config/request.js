@@ -1,7 +1,7 @@
 import navigationService from '../service/navigationService';
 
 export default async (config) => {
-  let baseUrl = 'http://192.168.113.89';
+  let baseUrl = 'http://192.168.43.251';
   let timeout = 10000;
   let body = null;
   let headers = Object.assign({'Content-Type': 'application/json'}, config.headers);
@@ -85,12 +85,11 @@ export default async (config) => {
         headers,
         body,
         cache: 'no-cache'
-      }).then((res) => {
+      }).then(async (res) => {
         console.log(config.url + ' headers: ', res);
-        global.$storage.save({
+        await global.$storage.save({
           key: 'cookie',
-          data: res.headers.map['set-cookie'].split(";")[0],
-          expires: 24 * 59 * 60 * 1000
+          data: res.headers.map['set-cookie'].split(";")[0]
         });
         return res.json();
       }).then((resJson) => {

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, } from 'react-native';
 import { Container, Content, Text } from 'native-base';
 
-class Review extends Component {
+class InvokeCompany extends Component {
   render() {
     return (
       <Container>
         <Content>
-          <Text>
-            Review
-          </Text>
+          <Text>InvokeCompany</Text>
         </Content>
       </Container>
     );
@@ -17,7 +15,7 @@ class Review extends Component {
 }
 
 const styles = StyleSheet.create({
-  
+
 });
 
-export default Review;
+export default InvokeCompany;
