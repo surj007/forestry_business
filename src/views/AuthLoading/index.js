@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'native-base';
 
 class AuthLoading extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.bootstrap();
   }
@@ -22,12 +22,12 @@ class AuthLoading extends React.Component {
       this.props.navigation.navigate('App');
     }
     catch(e) {
-      console.warn('cookie not found: ', e.message);
+      console.warn(`cookie not found: ${e.message}`);
       this.props.navigation.navigate('Login');
     }
   };
 
-  render() {
+  render () {
     return (
       <View></View>
     );

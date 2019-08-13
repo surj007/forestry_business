@@ -18,21 +18,21 @@ class Login extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     SplashScreen.hide();
   }
 
   submit = async () => {
     let errorFlag = false;
-    if(this.state.username == '') {
+    if (this.state.username == '') {
       this.setState({error: Object.assign(this.state.error, {usernameError: true})});
       errorFlag = true;
     }
-    if(this.state.password == '') {
+    if (this.state.password == '') {
       this.setState({error: Object.assign(this.state.error, {passwordError: true})});
       errorFlag = true;
     }
-    if(errorFlag) {
+    if (errorFlag) {
       global.$toast.show('用户名和密码不能为空');
       return;
     }
@@ -45,7 +45,7 @@ class Login extends Component {
         password: this.state.password
       }
     }).then((res) => {
-      if(res.code == 0) {
+      if (res.code == 0) {
         this.props.navigation.navigate('Home');
       }
     });
